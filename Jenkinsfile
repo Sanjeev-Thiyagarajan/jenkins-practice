@@ -58,7 +58,10 @@ pipeline {
                 expression {params.RUN_TESTS == true}
             }
             steps {
-                echo 'npm run test'
+                sh 'echo npm run test'
+                sh 'ls -l output'
+                sh 'ls -l output/coverage'
+                sh 'ls -l output/coverage/jest/'
 
             }
         }
@@ -81,14 +84,14 @@ pipeline {
     post {
         always {
             echo 'This will always run, regardless of success or failure'
-            publishHTML target: [
+            publishHTML (target: [
             allowMissing         : false,
             alwaysLinkToLastBuild: false,
             keepAll             : true,
-            reportDir            : 'output/coverage/jest',
+            reportDir            : 'output/coverage/jest/',
             reportFiles          : 'index.html',
             reportName           : 'Test Report'
-          ]
+          ])
         }
         success {
             echo 'This will run only if the pipeline succeeds'
