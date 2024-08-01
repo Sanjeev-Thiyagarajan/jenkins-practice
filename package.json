@@ -10,16 +10,9 @@
 
   "jest": {
     "coverageReporters": [
-      "text"
-    ],
-    "reporters": [
-      "default",
-      "jest-junit"
+      "text",
+      "html"
     ]
-  },
-  "jest-junit": {
-    "output": "output/coverage/junit/junit.xml",
-    "usePathForSuiteName": "true"
   },
   "keywords": [],
   "author": "",
