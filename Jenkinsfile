@@ -6,8 +6,12 @@ pipeline {
     }
 
     options {
-        timeout(time: 2, unit: 'MINUTES')
+        // timeout(time: 2, unit: 'MINUTES')
     }
+
+    parameters {
+           string(name: 'ENVIRONMENT', defaultValue: 'dev', description: 'Specify the environment for deployment')
+       }
     stages {
         stage('Build') {
 
@@ -19,7 +23,7 @@ pipeline {
                 sh 'echo Building the project'
                 sh 'echo db engine $DB_ENGINE'
                 sh 'echo "hostname $HOSTNAME"'
-                sh 'sleep 125'
+                // sh 'sleep 125'
             }
         }
         stage('Test') {
@@ -32,6 +36,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying the application.'
+                 echo "Deploying to ${params.ENVIRONMENT} environment."
             }
         }
     }
