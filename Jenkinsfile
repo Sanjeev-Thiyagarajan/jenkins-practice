@@ -4,6 +4,10 @@ pipeline {
     environment {
         DB_ENGINE = 'sqlite'
     }
+
+    options {
+        timeout(time: 2, unit: 'MINUTES')
+    }
     stages {
         stage('Build') {
 
@@ -15,13 +19,14 @@ pipeline {
                 sh 'echo Building the project'
                 sh 'echo db engine $DB_ENGINE'
                 sh 'echo "hostname $HOSTNAME"'
+                sh 'sleep 125'
             }
         }
         stage('Test') {
             steps {
                 echo 'running test'
                 echo 'db engine $DB_ENGINE'
-                echo 'hostname $HOSTNAME'
+                sh 'echo "hostname $HOSTNAME"'
             }
         }
         stage('Deploy') {
