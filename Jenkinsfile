@@ -58,7 +58,7 @@ pipeline {
                 expression {params.RUN_TESTS == true}
             }
             steps {
-                sh 'echo npm run test'
+                sh 'npm run test'
                 sh 'ls -l output'
                 sh 'ls -l output/coverage'
                 sh 'ls -l output/coverage/jest/'
