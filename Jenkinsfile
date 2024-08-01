@@ -17,28 +17,6 @@ pipeline {
     }
     stages {
 
-        stage('Build and Test') {
-            parallel {
-                stage('Build') {
-                    steps {
-                        echo 'Building.'
-                        // Build steps
-                    }
-                }
-                stage('Unit Tests') {
-                    steps {
-                        echo 'Running unit tests.'
-                        // Unit testing steps
-                    }
-                }
-                stage('Integration Tests') {
-                    steps {
-                        echo 'Running integration tests.'
-                        // Integration testing steps
-                    }
-                }
-            }
-        }
        
         stage('Build') {
 
@@ -48,7 +26,7 @@ pipeline {
             }
             steps {
                 sh 'echo Building the project'
-                sh 'echo db engine $DB_ENGINE'
+                sh 'npm install'
                 sh 'echo "hostname $HOSTNAME"'
                 // sh 'sleep 125'
             }
