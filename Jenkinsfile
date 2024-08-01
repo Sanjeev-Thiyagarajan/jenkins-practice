@@ -58,9 +58,8 @@ pipeline {
                 expression {params.RUN_TESTS == true}
             }
             steps {
-                echo 'running test'
-                echo 'db engine $DB_ENGINE'
-                sh 'echo "hostname $HOSTNAME"'
+                echo 'npm run test'
+
             }
         }
         stage('Deploy Staging') {
