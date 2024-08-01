@@ -13,15 +13,15 @@ pipeline {
             }
             steps {
                 echo 'Building the project.'
-                echo 'db engine ${DB_ENGINE}'
-                echo 'hostname ${HOSTNAME}'
+                echo 'db engine $DB_ENGINE'
+                echo 'hostname $HOSTNAME'
             }
         }
         stage('Test') {
             steps {
                 echo 'running test'
-                echo 'db engine ${DB_ENGINE}'
-                echo 'hostname ${HOSTNAME}'
+                echo 'db engine $DB_ENGINE'
+                echo 'hostname $HOSTNAME'
             }
         }
         stage('Deploy') {
