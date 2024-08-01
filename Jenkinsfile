@@ -15,6 +15,7 @@ pipeline {
         )
     }
     stages {
+        parallel {
         stage('Build') {
 
             environment {
@@ -45,11 +46,6 @@ pipeline {
 
             }
 
-            input {
-                message "do you want to deploy to prod"
-                ok "Yes, proceed!"
-                submitter "user123"
-            }
         }
 
         stage('Deploy Prod') {
@@ -57,6 +53,7 @@ pipeline {
                 echo 'Deploying to prod'
 
             }
+        }
         }
     }
     post {
