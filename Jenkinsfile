@@ -15,7 +15,30 @@ pipeline {
         )
     }
     stages {
-        parallel {
+
+        stage('Build and Test') {
+            parallel {
+                stage('Build') {
+                    steps {
+                        echo 'Building.'
+                        // Build steps
+                    }
+                }
+                stage('Unit Tests') {
+                    steps {
+                        echo 'Running unit tests.'
+                        // Unit testing steps
+                    }
+                }
+                stage('Integration Tests') {
+                    steps {
+                        echo 'Running integration tests.'
+                        // Integration testing steps
+                    }
+                }
+            }
+        }
+       
         stage('Build') {
 
             environment {
@@ -54,7 +77,7 @@ pipeline {
 
             }
         }
-        }
+        
     }
     post {
         always {
