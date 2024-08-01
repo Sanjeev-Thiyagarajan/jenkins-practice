@@ -81,7 +81,14 @@ pipeline {
     post {
         always {
             echo 'This will always run, regardless of success or failure'
-            junit 'junit.xml'
+            publishHTML target: [
+            allowMissing         : false,
+            alwaysLinkToLastBuild: false,
+            keepAll             : true,
+            reportDir            : 'output/coverage/jest',
+            reportFiles          : 'index.html',
+            reportName           : 'Test Report'
+          ]
         }
         success {
             echo 'This will run only if the pipeline succeeds'
