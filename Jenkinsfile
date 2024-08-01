@@ -8,8 +8,12 @@ pipeline {
 
 
     parameters {
-           string(name: 'ENVIRONMENT', defaultValue: 'dev', description: 'Specify the environment for deployment')
-       }
+        booleanParam(
+            name: 'RUN_TESTS',
+            defaultValue: true,
+            description: 'Choose to run tests'
+        )
+    }
     stages {
         stage('Build') {
 
@@ -25,6 +29,10 @@ pipeline {
             }
         }
         stage('Test') {
+
+            when {
+                expression {params.RUN_TESTS == true}
+            }
             steps {
                 echo 'running test'
                 echo 'db engine $DB_ENGINE'
