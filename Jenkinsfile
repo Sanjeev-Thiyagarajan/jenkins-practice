@@ -5,9 +5,9 @@ pipeline {
         DB_ENGINE = 'sqlite'
     }
 
-    options {
-        // timeout(time: 2, unit: 'MINUTES')
-    }
+    // options {
+    //     // timeout(time: 2, unit: 'MINUTES')
+    // }
 
     parameters {
            string(name: 'ENVIRONMENT', defaultValue: 'dev', description: 'Specify the environment for deployment')
