@@ -40,7 +40,7 @@ pipeline {
             input {
                 message "do you want to deploy to prod"
                 ok "Yes, proceed!"
-                submitter "sanjeev"
+                submitter "user123"
             }
         }
 
