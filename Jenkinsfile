@@ -12,9 +12,9 @@ pipeline {
                 PROJECTBUILD = "mybuild"
             }
             steps {
-                echo 'Building the project.'
-                echo 'db engine $DB_ENGINE'
-                echo 'hostname $HOSTNAME'
+                sh 'echo Building the project'
+                sh 'echo db engine $DB_ENGINE'
+                sh 'echo "hostname $HOSTNAME"'
             }
         }
         stage('Test') {
