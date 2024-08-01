@@ -5,9 +5,7 @@ pipeline {
         DB_ENGINE = 'sqlite'
     }
 
-    // options {
-    //     // timeout(time: 2, unit: 'MINUTES')
-    // }
+
 
     parameters {
            string(name: 'ENVIRONMENT', defaultValue: 'dev', description: 'Specify the environment for deployment')
@@ -33,10 +31,23 @@ pipeline {
                 sh 'echo "hostname $HOSTNAME"'
             }
         }
-        stage('Deploy') {
+        stage('Deploy Staging') {
             steps {
-                echo 'Deploying the application.'
-                 echo "Deploying to ${params.ENVIRONMENT} environment."
+                echo 'Deploying to staging'
+
+            }
+
+            input {
+                message "do you want to deploy to prod"
+                ok "Yes, proceed!"
+                submitter "sanjeev"
+            }
+        }
+
+        stage('Deploy Prod') {
+            steps {
+                echo 'Deploying to prod'
+
             }
         }
     }
