@@ -1,6 +1,7 @@
 pipeline {
     agent any
 
+    tools {nodejs "nodejs"}
     environment {
         DB_ENGINE = 'sqlite'
     }
