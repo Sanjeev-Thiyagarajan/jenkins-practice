@@ -11,9 +11,11 @@ pipeline {
         stage('Build') {
 
             steps {
-                echo "${PROD_SERVER}" // Prints username:password
-                echo "${PROD_SERVER_USR}" // Prints username
-                echo "${PROD_SERVER_PSW}" // Prints password
+                withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'MY_SSH_KEY'), usernameVariable: 'username']) {
+                    sh '''
+                    scp -i $MY_SSH_KEY ./* ${username}@18.207.192.10:/home/ec2-user/
+                    '''
+                }
             }
         }
         stage('Test') {
