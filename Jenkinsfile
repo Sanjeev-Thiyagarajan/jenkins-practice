@@ -10,12 +10,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                // Build steps go here
+                echo "building app"
             }
         }
         stage('Deploy') {
             steps {
-                // Deployment steps go here
+                echo "deploying app"
             }
             input {
                 message "Do you want to proceed with deployment?"
