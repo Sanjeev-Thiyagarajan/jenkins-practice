@@ -2,26 +2,25 @@ pipeline {
     agent any
 
     tools {nodejs "nodejs"}
-    environment {
-        ENVIRONMENT = "prod"
-
-    }
+    parameters {
+           string(name: 'ENVIRONMENT', defaultValue: 'dev', description: 'Specify the environment for deployment')
+           booleanParam(name: 'RUN_TESTS', defaultValue: true, description: "Run Tests in pipeline")
+       }
 
     stages {
         stage('Build') {
             when {
-                branch 'main'
-            }
+                   expression {
+                       params.RUN_TESTS == true
+                   }
+               }
             steps {
                 echo "Building application"
             }
         }
         stage('deploy') {
-            when {
-                expression {env.ENVIRONMENT == "prod"}
-            }
             steps {
-                echo "Deploying to prod"
+                echo "Deploying to ${params.ENVIRONMENT} environment"
 
             }
         }
