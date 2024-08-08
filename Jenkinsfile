@@ -13,8 +13,7 @@ pipeline {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'MY_SSH_KEY', usernameVariable: 'username')]) {
                     sh '''
-                    ssh -i $MY_SSH_KEY -o StrictHostKeyChecking=no  ${username}@18.207.192.10
-                    touch hello.txt
+                    ssh -i $MY_SSH_KEY -o StrictHostKeyChecking=no  ${username}@18.207.192.10 "touch hello.txt"
                     '''
                 }
             }
