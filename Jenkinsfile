@@ -3,31 +3,19 @@ pipeline {
 
     tools {nodejs "nodejs"}
     environment {
-        DB_ENGINE = 'sqlite'
+        PROD_SERVER = credentials('prod-server')
+
     }
 
-
-
-    parameters {
-        booleanParam(
-            name: 'RUN_TESTS',
-            defaultValue: true,
-            description: 'Choose to run tests'
-        )
-    }
     stages {
-
-       
         stage('Build') {
 
-            environment {
-                HOSTNAME = "my-host"
-                PORT = "5432"
-            }
             steps {
+                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
                 echo "Hostname is ${env.HOSTNAME}"
                 echo "Port is ${env.PORT}"
-                // sh 'sleep 125'
+                echo "prod server ${credentials('prod-server')}"
+                echo "again prod server ${PROD_SERVER}"
             }
         }
         stage('Test') {
