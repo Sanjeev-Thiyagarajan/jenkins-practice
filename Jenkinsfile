@@ -3,14 +3,14 @@ pipeline {
 
     tools {nodejs "nodejs"}
     environment {
-        ENVIRONMENT = "dev"
+        ENVIRONMENT = "prod"
 
     }
 
     stages {
         stage('Build') {
             when {
-                branch 'master'
+                branch 'main'
             }
             steps {
                 echo "Building application"
