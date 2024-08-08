@@ -18,7 +18,7 @@ pipeline {
         }
         stage('deploy') {
             when {
-                expression {env.ENVIRONMENT == prod}
+                expression {env.ENVIRONMENT == "prod"}
             }
             steps {
                 echo "Deploying to prod"
