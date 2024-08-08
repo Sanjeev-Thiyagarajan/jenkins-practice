@@ -9,18 +9,17 @@ pipeline {
 
     stages {
         stage('Build') {
-            when {
-                   expression {
-                       params.RUN_TESTS == true
-                   }
-               }
             steps {
-                echo "Building application"
+                // Build steps go here
             }
         }
-        stage('deploy') {
+        stage('Deploy') {
             steps {
-                echo "Deploying to ${params.ENVIRONMENT} environment"
+                // Deployment steps go here
+            }
+            input {
+                message "Do you want to proceed with deployment?"
+                ok "Yes, proceed!"
 
             }
         }
