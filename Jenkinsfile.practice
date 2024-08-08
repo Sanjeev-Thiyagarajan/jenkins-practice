@@ -1,23 +1,6 @@
 pipeline {
     agent any
-
-    tools {nodejs "nodejs"}
-    environment {
-        DB_ENGINE = 'sqlite'
-    }
-
-
-
-    parameters {
-        booleanParam(
-            name: 'RUN_TESTS',
-            defaultValue: true,
-            description: 'Choose to run tests'
-        )
-    }
     stages {
-
-       
         stage('Build') {
 
             environment {
@@ -37,7 +20,7 @@ pipeline {
 
             }
         }
+
         
     }
-    
 }

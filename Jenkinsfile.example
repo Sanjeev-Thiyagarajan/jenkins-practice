@@ -1,0 +1,103 @@
+pipeline {
+    agent any
+
+    tools {nodejs "nodejs"}
+    environment {
+        IMAGE_NAME = 'psrv3/kodekloud_flask_app'
+        IMAGE_TAG = "${IMAGE_NAME}:${env.BUILD_NUMBER}"
+        KUBECONFIG = credentials('kubeconfig-credentials-id')
+    }
+
+
+
+    stages {
+
+       
+        stage('Build') {
+
+
+            steps {
+                sh 'echo Building the project'
+                // sh 'sleep 125'
+            }
+        }
+        stage('Test') {
+
+            steps {
+                sh 'npm run test'
+                sh 'ls -l output'
+                sh 'ls -l output/coverage'
+                sh 'ls -l output/coverage/jest/'
+
+            }
+        }
+
+        stage('Build Docker Image')
+        {
+            steps
+            {
+                sh 'docker build -t ${IMAGE_TAG} .'
+                echo "Docker image build successfully"
+                sh "docker images"
+            }
+        }
+
+        stage('Push Docker Image')
+        {
+            steps
+            {
+                sh 'docker push ${IMAGE_TAG}'
+                echo "Docker image push successfully"
+            }
+        }
+        stage('Deploy Staging') {
+            steps {
+                echo 'Deploying to staging'
+                sh "kubectl config use-context staging"  
+                sh "kubectl set image -n staging deployment/flask-app-deployment-stage flask-app=${IMAGE_TAG} --record"
+                sh "sed"
+
+            }
+
+        }
+
+        stage('Acceptance Tests') {
+            steps {
+                echo 'Running acceptance test'
+
+            }
+
+        }
+
+        stage('Deploy Prod') {
+            steps {
+                echo 'Deploying to prod'
+
+                sh "kubectl config use-context prod"  
+                sh "kubectl set image -n staging deployment/flask-app-deployment-stage flask-app=${IMAGE_TAG} --record"
+                sh "sed"
+
+            }
+        }
+        
+    }
+    post {
+        always {
+            echo 'This will always run, regardless of success or failure'
+            publishHTML (target: [
+            allowMissing         : false,
+            alwaysLinkToLastBuild: false,
+            keepAll             : true,
+            reportDir            : 'output/coverage/jest/',
+            reportFiles          : 'index.html',
+            reportName           : 'Test Report'
+          ])
+        }
+        success {
+            echo 'This will run only if the pipeline succeeds'
+        }
+        failure {
+            echo 'This will run only if the pipeline fails'
+        }
+    }
+}
