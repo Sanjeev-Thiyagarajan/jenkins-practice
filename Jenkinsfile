@@ -3,28 +3,25 @@ pipeline {
 
     tools {nodejs "nodejs"}
     environment {
-        PROD_SERVER = credentials('prod-server')
+        ENVIRONMENT = "dev"
 
     }
 
     stages {
         stage('Build') {
-
+            when {
+                branch 'master'
+            }
             steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'MY_SSH_KEY', usernameVariable: 'username')]) {
-                    sh '''
-                    ssh -i $MY_SSH_KEY -o StrictHostKeyChecking=no  ${username}@18.207.192.10 << EOF
-                    touch file1
-                    touch file2
-                    EOF
-                    '''
-                }
+                echo "Building application"
             }
         }
-        stage('Test') {
+        stage('deploy') {
+            when {
+                expression {env.ENVIRONMENT == prod}
+            }
             steps {
-                echo "Hostname is ${env.HOSTNAME}"
-                echo "Port is ${env.PORT}"
+                echo "Deploying to prod"
 
             }
         }

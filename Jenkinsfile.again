@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    stages {
+        stage('lint and Test') {
+            parallel {
+
+            stages {
+                stage('Lint') {
+                    steps {
+                        // Lint steps
+                    }
+                }
+                stage('Unit Tests') {
+                    steps {
+                        // Unit testing steps
+                    }
+                }
+            }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                        // Deploy steps
+            }
+            
+        }
+    }
+}
