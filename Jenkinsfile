@@ -11,10 +11,12 @@ pipeline {
         stage('Build') {
 
             steps {
-                withCredentials([usernamePassword(credentialsId: 'prod-server', passwordVariable: 'mypassword', usernameVariable: 'myusername')]) {
+                withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'MY_SSH_KEY', usernameVariable: 'username')]) {
                     sh '''
-                    echo ${mypassword}
-                    echo ${myusername}
+                    ssh -i $MY_SSH_KEY -o StrictHostKeyChecking=no  ${username}@18.207.192.10 << EOF
+                    touch file1
+                    touch file2
+                    EOF
                     '''
                 }
             }
