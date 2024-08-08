@@ -11,9 +11,10 @@ pipeline {
         stage('Build') {
 
             steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'MY_SSH_KEY', usernameVariable: 'username')]) {
+                withCredentials([usernamePassword(credentialsId: 'prod-server', passwordVariable: 'mypassword', usernameVariable: 'myusername')]) {
                     sh '''
-                    ssh -i $MY_SSH_KEY -o StrictHostKeyChecking=no  ${username}@18.207.192.10 "touch hello.txt"
+                    echo ${mypassword}
+                    echo ${myusername}
                     '''
                 }
             }
